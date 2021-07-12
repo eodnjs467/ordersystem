@@ -20,8 +20,10 @@ public class Controller {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchResult(@RequestBody String input) {
+        System.out.println(input);
         List<Product> productList = productService.loadProduct(input);
-        return productList != null ? new ResponseEntity<>(productList, HttpStatus.OK) : new ResponseEntity<>(
-                "검색결과가 없습니다.", HttpStatus.OK);
+        return productList.isEmpty() ?
+                new ResponseEntity<>("검색결과가 없습니다.", HttpStatus.OK) :
+                new ResponseEntity<>(productList, HttpStatus.OK);
     }
 }
